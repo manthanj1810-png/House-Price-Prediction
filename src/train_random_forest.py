@@ -1,5 +1,6 @@
 import pandas as pd
 import joblib
+import matplotlib.pyplot as plt
 import os
 
 print("Current Working Directory:")
@@ -52,6 +53,24 @@ print("\nFeature Importance")
 
 for feature, importance in zip(features, model.feature_importances_):
     print(feature, ":", round(importance, 4))
+
+plt.figure(figsize=(8,6))
+
+plt.scatter(y_test, y_pred)
+
+plt.plot(
+    [y_test.min(), y_test.max()],
+    [y_test.min(), y_test.max()],
+    'r--'
+)
+
+plt.xlabel("Actual Price")
+plt.ylabel("Predicted Price")
+plt.title("Random Forest: Actual vs Predicted")
+
+plt.show()
+plt.savefig("actual_vs_predicted_rf.png")
+
 
 joblib.dump(
     model,
